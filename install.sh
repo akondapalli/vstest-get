@@ -56,7 +56,7 @@ function install_vstest() {
     fi
 
     _log "Downloading package to '$tmpdir'..."
-    curl --ciphers ALL --fail --location --silent --show-error --output "$nupkg" "$url"
+    curl --tlsv1 --fail --location --silent --show-error --output "$nupkg" "$url"
 
     _log_debug "Extracting nuget package in '$tmpdir'..."
     unzip -oq "$nupkg" -d "$tmpdir"
@@ -90,7 +90,7 @@ function list_vstest_versions() {
 
     info_url="https://api.nuget.org/v3-flatcontainer/Microsoft.TestPlatform.Portable/index.json"
     _log "Available vstest versions:"
-    curl --ciphers ALL --silent $info_url --stderr - | grep -o -P "^.*\"\\d.*\""
+    curl --tlsv1 --silent $info_url --stderr - | grep -o -P "^.*\"\\d.*\""
 }
 
 function show_usage() {
