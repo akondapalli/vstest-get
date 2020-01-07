@@ -41,7 +41,7 @@ function verify_dependencies() {
 function install_vstest() {
     _log_debug "Installing vstest"
 
-    url="https://www.nuget.org/api/v2/package/Microsoft.TestPlatform.Portable"
+    url="http://www.nuget.org/api/v2/package/Microsoft.TestPlatform.Portable"
     tmpdir=$(mktemp -d 2> /dev/null || mktemp -d -t 'vstest')
     nupkg=$tmpdir/Microsoft.TestPlatform.Portable.nupkg
 
@@ -56,7 +56,7 @@ function install_vstest() {
     fi
 
     _log "Downloading package to '$tmpdir'..."
-    curl --ssl --fail --location --silent --show-error --output "$nupkg" "$url"
+    curl --fail --location --silent --show-error --output "$nupkg" "$url"
 
     _log_debug "Extracting nuget package in '$tmpdir'..."
     unzip -oq "$nupkg" -d "$tmpdir"
@@ -88,9 +88,9 @@ function verify_install() {
 function list_vstest_versions() {
     _log_debug "available vstest versions"
 
-    info_url="https://api.nuget.org/v3-flatcontainer/Microsoft.TestPlatform.Portable/index.json"
+    info_url="http://api.nuget.org/v3-flatcontainer/Microsoft.TestPlatform.Portable/index.json"
     _log "Available vstest versions:"
-    curl --ssl --silent $info_url --stderr - | grep -o -P "^.*\"\\d.*\""
+    curl --silent $info_url --stderr - | grep -o -P "^.*\"\\d.*\""
 }
 
 function show_usage() {
